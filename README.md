@@ -1,7 +1,7 @@
 # Apache Ignite Metrics Viewer
 
 A utility outputs all JMX metrics attributes on the specified cluster in this csv format:
-attributeName;attributeType;attributeDescription;jmxBeanName;jmxBeanGroup
+attributeName;attributeType;attributeDescription;jmxBeanName;jmxBeanClassName;jmxBeanGroup
 
 A utility recieves hostname and port as parametres.
 
