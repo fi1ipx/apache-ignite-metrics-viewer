@@ -12,7 +12,7 @@ export IGNITE_JMX_PORT=50000
 
 start a cluster
 
-mvn clean install
+mvn clean install -DskipTests
 
 java -jar target/apache-ignite-metrics-viewer-0.1.jar localhost 50000 8.5.17-params.txt
 

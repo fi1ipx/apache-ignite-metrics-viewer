@@ -25,7 +25,7 @@ public class JmxAttributesReceiver {
         }
     }
 
-    private static Set<ObjectName> fetchObjects(String hostname, String portNumber) throws Exception {
+    public static Set<ObjectName> fetchObjects(String hostname, String portNumber) throws Exception {
         JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://" + hostname + ":" + portNumber + "/jmxrmi");
         JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
         jmxc.connect();
@@ -34,7 +34,7 @@ public class JmxAttributesReceiver {
         return serverConnection.queryNames(new ObjectName("org.apache" + ":*"), null);
     }
 
-    private static void printToConsole(Set<ObjectName> objects) throws Exception {
+    public static void printToConsole(Set<ObjectName> objects) throws Exception {
         for (ObjectName object : objects) {
             MBeanInfo beanInfo = serverConnection.getMBeanInfo(object);
             MBeanAttributeInfo[] attrInfo = beanInfo.getAttributes();
@@ -43,13 +43,13 @@ public class JmxAttributesReceiver {
                 System.out.println(
                         attr.getName() + ";" + attr.getType() + ";"
                                 + attr.getDescription() + ";" + object.getKeyProperty("name")
-                                + ";" + object.getKeyProperty("name") + ";" + object.getKeyProperty("group")
+                                + ";" + beanInfo.getClassName() + ";" + object.getKeyProperty("group")
                 );
             }
         }
     }
 
-    private static void saveToFile(Set<ObjectName> objects, String fileName) throws Exception {
+    public static void saveToFile(Set<ObjectName> objects, String fileName) throws Exception {
         FileWriter fileWriter = new FileWriter(fileName);
         PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -61,7 +61,7 @@ public class JmxAttributesReceiver {
                 printWriter.println(
                         attr.getName() + ";" + attr.getType() + ";"
                                 + attr.getDescription() + ";" + object.getKeyProperty("name")
-                                + ";" + object.getKeyProperty("name") + ";" + object.getKeyProperty("group")
+                                + ";" + beanInfo.getClassName() + ";" + object.getKeyProperty("group")
                 );
             }
 
